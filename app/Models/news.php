@@ -2,10 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Sity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class news extends Model
+class News extends Model
 {
     use HasFactory;
+    protected $table = 'news';
+    public function sity()
+    {
+        return $this->belongsTo(Sity::class);
+    }
+
 }

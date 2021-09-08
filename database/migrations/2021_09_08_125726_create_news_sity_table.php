@@ -15,8 +15,8 @@ class CreateNewsSityTable extends Migration
     {
         Schema::create('news_sity', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('news_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('news_id');
             $table->boolean('favorite');
             $table->timestamps();
 

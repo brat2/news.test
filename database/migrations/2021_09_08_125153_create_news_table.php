@@ -19,14 +19,8 @@ class CreateNewsTable extends Migration
             $table->string('img');
             $table->text('description');
             $table->text('text');
-            $table->bigInteger('user_id');
-            $table->bigInteger('sity_id');
+            $table->unsignedBigInteger('sity_id');
             $table->timestamps();
-
-            $table->foreign('user_id')
-            ->references('id')
-            ->on('users')
-            ->cascadeOnDelete();
 
             $table->foreign('sity_id')
             ->references('id')
