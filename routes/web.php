@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\newsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [newsController::class, 'home']);
+
+Route::get('{sity?}/news', [newsController::class, 'index']);
+
+Route::get('/news/{id}', [newsController::class, 'show']);
+
+Route::post('/search', [newsController::class, 'search']);
+
+Route::get('favorite/{news_id}', [newsController::class, 'addFavorite']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
