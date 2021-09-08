@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsTable extends Migration
+class CreateNewsSityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('news_sity', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('img');
-            $table->text('description');
-            $table->text('text');
             $table->bigInteger('user_id');
-            $table->bigInteger('sity_id');
+            $table->bigInteger('news_id');
+            $table->boolean('favorite');
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -28,9 +25,9 @@ class CreateNewsTable extends Migration
             ->on('users')
             ->cascadeOnDelete();
 
-            $table->foreign('sity_id')
+            $table->foreign('news_id')
             ->references('id')
-            ->on('sities')
+            ->on('news')
             ->cascadeOnDelete();
         });
     }
@@ -42,6 +39,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('news_sities');
     }
 }

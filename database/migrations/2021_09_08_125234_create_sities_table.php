@@ -15,6 +15,8 @@ class CreateSitiesTable extends Migration
     {
         Schema::create('sities', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
     }
