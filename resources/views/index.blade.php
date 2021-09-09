@@ -22,16 +22,18 @@
     <div class="container pt-20">
         <div class="row top">
             <div class="col-5 sities">
-                @foreach($data as $item)
-                <a href="/{{$item->sity->slug}}/news">{{$item->sity->name}}</a>
+                @if($sities)
+                @foreach($sities as $item)
+                <a href="/{{$item->sity->slug}}/news">{{$item->name}}</a>
                 @endforeach
+                @endif
             </div>
             <div class="col-4 search"><input type="text"><input type="submit" value="поиск"></div>
             <div class="col-3 auth">
                 <div class="row ">
 
                     @auth
-                    <div class="col"><b>User</b></div>
+                    <div class="col"><b>{{auth()->User()->name}}</b></div>
                     <div class="col">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -58,9 +60,9 @@
                 </div>
             </div>
         </div>
-        @if(!empty($data))
+        @if(!empty($favorite))
         <div class="row news-list">
-            @foreach($data as $item)
+            @foreach($favorite as $item)
             <div>
                 <p>{{$item->title}}</p>
                 <p>{{$item->img}}</p>
