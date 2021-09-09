@@ -63,36 +63,19 @@
 
         <div class="row news-list">
             @if($news)
-            @if($city)
-            <h3>Новости города {{$city->name}}</h3>
-            @else
-            <h3>Все новости</h3>
-            @endif
+            <h3>Избранные новости</h3>
+
             @foreach($news as $item)
             <div class="row">
                 <a href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
                 <p>{{$item->description}}</p>
-                <a href="{{route('setFavorite', ['id' => $item->id])}}">добавить в избранное</a>
-            </div>
-            <hr>
-            @endforeach
-            @endif
-
-            @if($other)
-            <h3>Другие новости</h3>
-            @foreach($other as $item)
-            <div class="row">
-            <a href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
-                <p>{{$item->description}}</p>
-                <a href="{{route('setFavorite', ['id' => $item->id])}}">добавить в избранное</a>
+                <a href="{{route('setFavorite', ['id' => $item->id])}}">удалить из избранного</a>
             </div>
             <hr>
             @endforeach
             @endif
         </div>
-
     </div>
-
 </body>
 
 </html>

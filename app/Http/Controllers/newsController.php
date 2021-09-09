@@ -2,46 +2,62 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\NewsRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {
     private $newsRepository;
-    private $sities;
+    private $cities;
 
     public function __construct(NewsRepositoryInterface $newsRepository)
     {
         $this->newsRepository = $newsRepository;
-        $this->sities = $newsRepository->getSities();
+        $this->cities = $newsRepository->getCities();
     }
 
     public function home()
     {
         $favorite = $this->newsRepository->getFavorite(auth()->user());
-        return view('index', [
-            'favorite' => $favorite,
-            'sities' => $this->sities
+        return view('home', [
+            'news' => $favorite,
+            'cities' => $this->cities
         ]);
     }
 
-    public function index()
+    public function allNews($city = null)
     {
-        return view('index');
+        $news = $this->newsRepository->getСityNewsOrAll($city);
+        $other = $this->newsRepository->getOtherNews($city);
+        $activeCity = $this->cities->where('slug', $city)->first();
+        return view('index', [
+            'news' => $news,
+            'other' => $other,
+            'cities' => $this->cities,
+            'city' => $activeCity
+        ]);
     }
 
     public function show($id)
     {
-        return view('show');
+        $news = $this->newsRepository->getOneNews($id);
+        $similar = $this->newsRepository->getSimilarNews($id);
+
+        return view('show', [
+            'news' => $news,
+            'similar' => $similar,
+            'cities' => $this->cities
+        ]);
     }
+
     public function search(Request $req)
     {
         return view('search');
     }
-    public function addFavorite($news_id)
+
+    public function setFavorite($news_id)
     {
-        return view('index');
+        $this->newsRepository->setFavorite(auth()->user(), $news_id);
+        return back();
     }
 }

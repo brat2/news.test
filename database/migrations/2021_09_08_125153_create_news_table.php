@@ -19,12 +19,12 @@ class CreateNewsTable extends Migration
             $table->string('img');
             $table->text('description');
             $table->text('text');
-            $table->unsignedBigInteger('sity_id');
+            $table->unsignedBigInteger('city_id');
             $table->timestamps();
 
-            $table->foreign('sity_id')
+            $table->foreign('city_id')
             ->references('id')
-            ->on('sities')
+            ->on('cities')
             ->cascadeOnDelete();
         });
     }

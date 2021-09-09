@@ -16,13 +16,15 @@ use App\Http\Controllers\newsController;
 
 Route::get('/', [newsController::class, 'home']);
 
-Route::get('{sity?}/news', [newsController::class, 'index']);
+Route::get('/news', [newsController::class, 'allNews']);
 
-Route::get('/news/{id}', [newsController::class, 'show']);
+Route::get('{city}/news', [newsController::class, 'allNews']);
+
+Route::get('/news/{id}', [newsController::class, 'show'])->name('show');
 
 Route::post('/search', [newsController::class, 'search']);
 
-Route::get('favorite/{news_id}', [newsController::class, 'addFavorite']);
+Route::get('set/favorite/{id}', [newsController::class, 'setFavorite'])->name('setFavorite');
 
 
 Route::get('/dashboard', function () {
