@@ -72,7 +72,13 @@
             <div class="row">
                 <a href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
                 <p>{{$item->description}}</p>
-                <a href="{{route('setFavorite', ['id' => $item->id])}}">добавить в избранное</a>
+                @auth
+                @if($item->users->find(auth()->User()->id))
+                <a href="{{route('setFavorite', ['act' => 'remove', 'id' => $item->id])}}">убрать из избранного</a>
+                @else
+                <a href="{{route('setFavorite', ['act' => 'add', 'id' => $item->id])}}">добавить в избранное</a>
+                @endif
+                @endauth
             </div>
             <hr>
             @endforeach
@@ -82,9 +88,9 @@
             <h3>Другие новости</h3>
             @foreach($other as $item)
             <div class="row">
-            <a href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
+                <a href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
                 <p>{{$item->description}}</p>
-                <a href="{{route('setFavorite', ['id' => $item->id])}}">добавить в избранное</a>
+                <a href="{{route('setFavorite', ['act' => 'add', 'id' => $item->id])}}">добавить в избранное</a>
             </div>
             <hr>
             @endforeach

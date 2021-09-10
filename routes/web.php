@@ -24,7 +24,7 @@ Route::get('/news/{id}', [newsController::class, 'show'])->name('show');
 
 Route::post('/search', [newsController::class, 'search']);
 
-Route::get('set/favorite/{id}', [newsController::class, 'setFavorite'])->name('setFavorite');
+Route::get('/favorite/{act}/{id}', [newsController::class, 'setFavorite'])->name('setFavorite');
 
 
 Route::get('/dashboard', function () {

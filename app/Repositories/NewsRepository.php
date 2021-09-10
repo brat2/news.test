@@ -68,18 +68,22 @@ class NewsRepository implements NewsRepositoryInterface
     {
     }
 
-    public function setFavorite($user, $news_id)
+    public function addFavorite($user, $news_id)
     {
-        $us = User::find($user->id);
-      //  $us->news()->attach($news_id);
-        $us->news()->detach($news_id);
+        User::find($user->id)->news()->attach($news_id);
+    }
 
+
+    public function removeFavorite($user, $news_id)
+    {
+        User::find($user->id)->news()->detach($news_id);
     }
 
     //сделано
     private function getAllNews()
     {
         $allNews = News::join('cities', 'cities.id', 'city_id')
+            ->with('users')
             ->orderBy('news.created_at', 'desc')
             ->select(['news.id', 'title', 'description', 'slug'])
             ->get();

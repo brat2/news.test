@@ -19,5 +19,6 @@ interface NewsRepositoryInterface
 
   public function getSearch(Request $req);
 
-  public function setFavorite($user, $news_id);
+  public function addFavorite($user, $news_id);
+  public function removeFavorite($user, $news_id);
 }

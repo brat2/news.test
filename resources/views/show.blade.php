@@ -65,11 +65,15 @@
             @if($news)
 
             <div class="row">
-                <a href="{{route('show', ['id' => $news->id])}}">{{$news->title}}</a>
-                <p>{{$news->description}}</p>
+                <h3 class="text-center pb-3 pt-3"><a href="{{route('show', ['id' => $news->id])}}">{{$news->title}}</a></h3>
+
+                <div class="row justify-content-center">
+                    <div class="col-8"><img src="{{$news->img}}" class="img-fluid"></div>
+                </div>
+                <p class="lead pt-5">{{$news->text}}</p>
                 <a href="{{route('setFavorite', ['id' => $news->id])}}">добавить в избранное</a>
             </div>
-            <hr>
+            
             @endif
 
             @if($similar)

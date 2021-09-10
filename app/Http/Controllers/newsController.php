@@ -55,9 +55,14 @@ class NewsController extends Controller
         return view('search');
     }
 
-    public function setFavorite($news_id)
+    public function setFavorite($act, $news_id)
     {
-        $this->newsRepository->setFavorite(auth()->user(), $news_id);
+        if ($act == 'add')
+            $this->newsRepository->addFavorite(auth()->user(), $news_id);
+
+        if ($act == 'remove')
+            $this->newsRepository->removeFavorite(auth()->user(), $news_id);
+
         return back();
     }
 }
