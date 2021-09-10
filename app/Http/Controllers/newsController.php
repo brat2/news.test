@@ -19,7 +19,7 @@ class NewsController extends Controller
     public function home()
     {
         $favorite = $this->newsRepository->getFavorite(auth()->user());
-        return view('home', [
+        return view('news.home', [
             'news' => $favorite,
             'cities' => $this->cities
         ]);
@@ -30,7 +30,7 @@ class NewsController extends Controller
         $news = $this->newsRepository->getСityNewsOrAll($city);
         $other = $this->newsRepository->getOtherNews($city);
         $activeCity = $this->cities->where('slug', $city)->first();
-        return view('index', [
+        return view('news.index', [
             'news' => $news,
             'other' => $other,
             'cities' => $this->cities,
@@ -43,7 +43,7 @@ class NewsController extends Controller
         $news = $this->newsRepository->getOneNews($id);
         $similar = $this->newsRepository->getSimilarNews($id);
 
-        return view('show', [
+        return view('news.show', [
             'news' => $news,
             'similar' => $similar,
             'cities' => $this->cities
@@ -52,7 +52,7 @@ class NewsController extends Controller
 
     public function search(Request $req)
     {
-        return view('search');
+        return view('news.search');
     }
 
     public function setFavorite($act, $news_id)

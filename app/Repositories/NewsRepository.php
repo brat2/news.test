@@ -53,7 +53,7 @@ class NewsRepository implements NewsRepositoryInterface
     //сделано
     public function getOneNews($id)
     {
-        $news = News::select('id', 'title', 'img', 'description', 'text')
+        $news = News::select('id', 'title', 'img', 'text')
             ->where('id', $id)
             ->first();
         return $news;
@@ -67,13 +67,13 @@ class NewsRepository implements NewsRepositoryInterface
     public function getSearch(Request $req)
     {
     }
-
+    //сделано
     public function addFavorite($user, $news_id)
     {
         User::find($user->id)->news()->attach($news_id);
     }
 
-
+    //сделано
     public function removeFavorite($user, $news_id)
     {
         User::find($user->id)->news()->detach($news_id);
