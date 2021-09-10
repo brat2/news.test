@@ -12,9 +12,9 @@
     <p class="lead">{{$item->description}}</p>
     @auth
     @if($item->users->find(auth()->User()->id))
-    <a class="btn btn-sm btn-secondary col-2 mb-3" href="{{route('setFavorite', ['act' => 'remove', 'id' => $item->id])}}">убрать из избранного</a>
+    <a class="favorite btn btn-sm btn-secondary col-2 mb-3" href="{{route('setFavorite', ['act' => 'remove', 'id' => $item->id])}}">убрать из избранного</a>
     @else
-    <a class="btn btn-sm btn-warning col-2 mb-3" href="{{route('setFavorite', ['act' => 'add', 'id' => $item->id])}}">добавить в избранное</a>
+    <a class="favorite btn btn-sm btn-warning col-2 mb-3" href="{{route('setFavorite', ['act' => 'add', 'id' => $item->id])}}">добавить в избранное</a>
     @endif
     @endauth
 </div>
@@ -23,12 +23,18 @@
 @endif
 
 @if($other)
-<h3>Другие новости</h3>
+<h3 class="mt-4">Другие новости</h3>
 @foreach($other as $item)
 <div class="row">
-    <a href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
+<a class="h4" href="{{route('show', ['id' => $item->id])}}">{{$item->title}}</a>
     <p>{{$item->description}}</p>
-    <a href="{{route('setFavorite', ['act' => 'add', 'id' => $item->id])}}">добавить в избранное</a>
+    @auth
+    @if($item->users->find(auth()->User()->id))
+    <a class="favorite btn btn-sm btn-secondary col-2 mb-3" href="{{route('setFavorite', ['act' => 'remove', 'id' => $item->id])}}">убрать из избранного</a>
+    @else
+    <a class="favorite btn btn-sm btn-warning col-2 mb-3" href="{{route('setFavorite', ['act' => 'add', 'id' => $item->id])}}">добавить в избранное</a>
+    @endif
+    @endauth
 </div>
 <hr>
 @endforeach

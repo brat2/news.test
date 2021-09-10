@@ -26,9 +26,4 @@ Route::post('/search', [newsController::class, 'search']);
 
 Route::get('/favorite/{act}/{id}', [newsController::class, 'setFavorite'])->name('setFavorite');
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';

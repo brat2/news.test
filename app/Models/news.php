@@ -11,6 +11,7 @@ class News extends Model
 {
     use HasFactory;
     protected $table = 'news';
+    
     public function city()
     {
         return $this->belongsTo(City::class);

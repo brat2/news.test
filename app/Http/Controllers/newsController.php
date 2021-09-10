@@ -41,7 +41,7 @@ class NewsController extends Controller
     public function show($id)
     {
         $news = $this->newsRepository->getOneNews($id);
-        $similar = $this->newsRepository->getSimilarNews($id);
+        $similar = $this->newsRepository->getSimilarNews($news);
 
         return view('news.show', [
             'news' => $news,
@@ -52,7 +52,11 @@ class NewsController extends Controller
 
     public function search(Request $req)
     {
-        return view('news.search');
+        $news = $this->newsRepository->getSearch($req);
+        return view('news.search', [
+            'news' => $news,
+            'cities' => $this->cities
+        ]);
     }
 
     public function setFavorite($act, $news_id)
@@ -63,6 +67,6 @@ class NewsController extends Controller
         if ($act == 'remove')
             $this->newsRepository->removeFavorite(auth()->user(), $news_id);
 
-        return back();
+        return $act;
     }
 }

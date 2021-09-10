@@ -12,7 +12,7 @@ class NewsRepository implements NewsRepositoryInterface
 {
     private $allNews;
 
-    //сделано
+
     public function getFavorite($user)
     {
         if (!$user) return [];
@@ -24,7 +24,7 @@ class NewsRepository implements NewsRepositoryInterface
         return $favorite;
     }
 
-    //сделано
+
     public function getСityNewsOrAll($city)
     {
         $news = $this->allNews ?? $this->getAllNews();
@@ -33,7 +33,7 @@ class NewsRepository implements NewsRepositoryInterface
         return $news;
     }
 
-    //сделано
+
     public function getOtherNews($city)
     {
         if (!$city) return [];
@@ -43,43 +43,52 @@ class NewsRepository implements NewsRepositoryInterface
         return $other;
     }
 
-    //сделано
+
     public function getCities()
     {
         $cities = City::all();
         return $cities;
     }
 
-    //сделано
+
     public function getOneNews($id)
     {
-        $news = News::select('id', 'title', 'img', 'text')
-            ->where('id', $id)
+        $news = News::join('cities', 'city_id', 'cities.id')
+            ->select('news.id', 'title', 'img', 'text', 'slug')
+            ->where('news.id', $id)
             ->first();
         return $news;
     }
 
-    public function getSimilarNews($id)
+    public function getSimilarNews($news)
     {
+        $similar = News::join('cities', 'city_id', 'cities.id')
+            ->select('news.id', 'title', 'img', 'description', 'slug')
+            ->where('slug', $news->slug)
+            ->where('news.id', '<>', $news->id)
+            ->get();
+
+        return $similar;
     }
 
 
     public function getSearch(Request $req)
     {
+        return collect();
     }
-    //сделано
+
     public function addFavorite($user, $news_id)
     {
         User::find($user->id)->news()->attach($news_id);
     }
 
-    //сделано
+
     public function removeFavorite($user, $news_id)
     {
         User::find($user->id)->news()->detach($news_id);
     }
 
-    //сделано
+
     private function getAllNews()
     {
         $allNews = News::join('cities', 'cities.id', 'city_id')
